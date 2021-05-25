@@ -11,7 +11,7 @@ export default class Board{
 
     wrapAround : boolean
 
-    constructor(width : number, height : number, wrap : boolean = false){
+    constructor(width : number, height : number, wrap : boolean = false, strategy : IStrategy = new Conway()){
         this.width = width;
         this.height = height;
         this.wrapAround = wrap;
@@ -21,7 +21,7 @@ export default class Board{
             this.cells[i] = new Cell(i, false);
         }
 
-        this.currentStrategy = new Conway();
+        this.currentStrategy = strategy;
     }
 
     flipCell(idx : number){
@@ -54,6 +54,10 @@ export default class Board{
         nextState.forEach((state, idx) => {
             this.cells[idx].state = state;
         });
+    }
+
+    setStrategy( strat : IStrategy){
+        this.currentStrategy = strat;
     }
 
     private getAt(y : number, x : number) : Cell{

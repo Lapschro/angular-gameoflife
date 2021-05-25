@@ -1,13 +1,14 @@
 import IStrategy from "./Strategy";
 
-export default class Conway implements IStrategy{
+export default class SeedRule implements IStrategy{
     livingRule(livingNeighbors: number): boolean {
-        return livingNeighbors == 2 || livingNeighbors == 3;
+        return false;
     }
     dyingRule(livingNeighbors: number): boolean {
-        return livingNeighbors < 2 || livingNeighbors > 3
+        return true;
     }
     borningRule(livingNeighbors: number): boolean {
-        return livingNeighbors == 3;
+        return livingNeighbors == 2;
     }
+
 }

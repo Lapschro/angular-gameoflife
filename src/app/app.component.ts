@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import Board from 'src/lib/Board';
 import Cell from 'src/lib/Cell';
+import Conway from 'src/lib/ConwayRules';
+import HighLifeRules from 'src/lib/HighLifeRules';
+import SeedRule from 'src/lib/SeedRule';
+import IStrategy from 'src/lib/Strategy';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +15,11 @@ export class AppComponent {
   title = 'gol-angular';
   board : Board;
   onAuto : boolean;
+  currentStrategy : string;
+
+  strategies : {
+    [key : string] : IStrategy 
+  };
 
   flipState(idx : number){
     this.board.flipCell(idx);
@@ -35,8 +44,22 @@ export class AppComponent {
     }
   }
 
+  changeRule(next : string){
+    console.log(next);
+    
+    this.board.setStrategy(this.strategies[next]);
+  }
+
   constructor(){
-    this.board = new Board(40,40, true);
     this.onAuto = false;
+    
+    this.strategies = {
+      "Conway" : new Conway(),
+      "Highlife" : new HighLifeRules(),
+      "Seed" : new SeedRule()
+    };
+    
+    this.board = new Board(40,40, true, this.strategies["Conway"]);
+    this.currentStrategy = "Conway";
   }
 }

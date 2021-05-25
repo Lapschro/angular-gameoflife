@@ -4,7 +4,15 @@
     </div>
   </div>
   <div class="controls">
+    <select (change)="changeRule($event.target.value)">
+      <option *ngFor='let strat of strategies | keyvalue' value={{strat.key}}>{{strat.key}}</option>
+    </select>
     <button (click)="iterate()">Iterate</button>
     <button (click)="changeAuto()">{{onAuto ? 'Turn off Auto' : 'Turn on Auto'}}</button>
+    <div>
+      Game of Life <p></p>
+      Touch a cell in the board to change a cell state<p></p>
+      The game of life algorithm was defined by John Horton Conway in 1970 <a target="_blank" href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'>Wikipedia</a>
+    </div>
   </div>
 </div>
